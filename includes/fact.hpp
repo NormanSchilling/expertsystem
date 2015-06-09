@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expertsystem.hpp                                   :+:      :+:    :+:   */
+/*   fact.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:12:19 by nschilli         ###   ########.fr       */
+/*   Created: 2015/06/09 15:49:48 by nschilli          #+#    #+#             */
+/*   Updated: 2015/06/09 15:57:09 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPERTSYSTEM_HPP
-# define EXPERTSYSTEM_HPP
+#ifndef FACT_HPP
+# define FACT_HPP
 
 #include <iostream>
 #include <stdio.h>
@@ -21,38 +21,34 @@
 #include <string>
 #include <regex>
 #include <vector>
-#include <fact.hpp>
 
-class ExpertSystem
+class Fact
 {
 	public:
 
 		/*
 		** CONSTRUCT & DESTRUCT
 		*/
-		ExpertSystem( void );
-		ExpertSystem( ExpertSystem const & cpy );
-		~ExpertSystem( void );
+		Fact( void );
+		Fact( Fact const & cpy );
+		~Fact( void );
 
 		/*
 		** OPERATOR
 		*/
-		ExpertSystem &	operator=( ExpertSystem const & cpy );
+		Fact &	operator=( Fact const & cpy );
 
 		/*
 		** METHOD
 		*/
-		void			parsing_init_fact(std::string line);
-		void			parsing_init_queries(std::string line);
 
 		/*
 		** GETTER
 		*/
 
 	private:
-		std::vector<Rule>	rules;
-		std::vector<Fact>	init_fact;
-		std::vector<Fact>	init_queries;
+		std::string	value;
+		int			state;
 
 };
 

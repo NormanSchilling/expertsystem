@@ -6,11 +6,11 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/08 15:04:29 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/09 16:12:14 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <ExpertSystem.hpp>
+#include <expertsystem.hpp>
 
 /*
 ** CONSTRUCT & DESTRUCT
@@ -45,7 +45,6 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 /*
 ** METHOD
 */
-void			ExpertSystem::fetch
 
 void	 		ExpertSystem::parsing_init_fact(std::string line)
 {

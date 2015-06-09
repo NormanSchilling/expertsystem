@@ -8,7 +8,10 @@ INC			+=	-I includes
 
 INC_DIR		=	includes/
 
-INC_FILES	=	expertsystem.hpp
+INC_FILES	=	expertsystem.hpp \
+				fact.hpp \
+				operation.hpp \
+				operator.hpp \
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -16,6 +19,10 @@ SRC_DIR		=	srcs/
 
 FILES		=	main.cpp \
 				expertsystem.cpp \
+				fact.cpp \
+				operation.cpp \
+				operator.cpp \
+
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 

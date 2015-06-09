@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expertsystem.hpp                                   :+:      :+:    :+:   */
+/*   operation.hpp                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:12:19 by nschilli         ###   ########.fr       */
+/*   Created: 2015/06/09 16:01:56 by nschilli          #+#    #+#             */
+/*   Updated: 2015/06/09 16:13:52 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef EXPERTSYSTEM_HPP
-# define EXPERTSYSTEM_HPP
+#ifndef OPERATION_HPP
+# define OPERATION_HPP
 
 #include <iostream>
 #include <stdio.h>
@@ -22,37 +22,36 @@
 #include <regex>
 #include <vector>
 #include <fact.hpp>
+#include <operator.hpp>
 
-class ExpertSystem
+class Operation
 {
 	public:
 
 		/*
 		** CONSTRUCT & DESTRUCT
 		*/
-		ExpertSystem( void );
-		ExpertSystem( ExpertSystem const & cpy );
-		~ExpertSystem( void );
+		Operation( void );
+		Operation( Operation const & cpy );
+		~Operation( void );
 
 		/*
 		** OPERATOR
 		*/
-		ExpertSystem &	operator=( ExpertSystem const & cpy );
+		Operation &	operator=( Operation const & cpy );
 
 		/*
 		** METHOD
 		*/
-		void			parsing_init_fact(std::string line);
-		void			parsing_init_queries(std::string line);
 
 		/*
 		** GETTER
 		*/
 
 	private:
-		std::vector<Rule>	rules;
-		std::vector<Fact>	init_fact;
-		std::vector<Fact>	init_queries;
+		Operator	ope;
+		Fact		left;
+		Fact		right;
 
 };
 
