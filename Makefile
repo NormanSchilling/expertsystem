@@ -12,6 +12,8 @@ INC_FILES	=	expertsystem.hpp \
 				fact.hpp \
 				operation.hpp \
 				operator.hpp \
+				rule.hpp \
+				part.hpp
 
 INC_SRC		=	$(addprefix $(INC_DIR), $(INC_FILES))
 
@@ -22,7 +24,8 @@ FILES		=	main.cpp \
 				fact.cpp \
 				operation.cpp \
 				operator.cpp \
-
+				rule.cpp \
+				part.cpp
 
 SRC			=	$(addprefix $(SRC_DIR), $(FILES))
 
