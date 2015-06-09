@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:12:19 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/09 17:03:28 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 #include <regex>
 #include <vector>
 #include <fact.hpp>
+#include <rule.hpp>
 
 class ExpertSystem
 {
@@ -42,17 +43,18 @@ class ExpertSystem
 		/*
 		** METHOD
 		*/
+		void			fetch_init_fact();
 		void			parsing_init_fact(std::string line);
-		void			parsing_init_queries(std::string line);
+		// void			parsing_init_queries(std::string line);
 
 		/*
 		** GETTER
 		*/
 
 	private:
-		std::vector<Rule>	rules;
-		std::vector<Fact>	init_fact;
-		std::vector<Fact>	init_queries;
+		std::vector<Rule*>	rules;
+		std::vector<Fact*>	init_fact;
+		std::vector<Fact*>	init_queries;
 
 };
 

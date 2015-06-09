@@ -6,12 +6,16 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 16:14:12 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:16:43 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/09 16:32:20 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef OPERATOR_HPP
 # define OPERATOR_HPP
+
+#include <iostream>
+#include <stdio.h>
+#include <stdlib.h>
 
 class Operator
 {
@@ -38,8 +42,8 @@ class Operator
 		*/
 
 	private:
-		string		value;
-		int			weight;
+		std::string		value;
+		// int				weight;
 };
 
 #endif

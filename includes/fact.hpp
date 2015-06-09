@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 15:49:48 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 15:57:09 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/09 16:55:26 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ class Fact
 		** CONSTRUCT & DESTRUCT
 		*/
 		Fact( void );
+		Fact( char value, int state );
 		Fact( Fact const & cpy );
 		~Fact( void );
 
@@ -45,10 +46,13 @@ class Fact
 		/*
 		** GETTER
 		*/
+		char	getValue(void);
+		int		getState(void);
+
 
 	private:
-		std::string	value;
-		int			state;
+		char	value;
+		int		state;
 
 };
 

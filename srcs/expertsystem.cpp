@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:12:14 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/09 17:04:48 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,29 +45,44 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 /*
 ** METHOD
 */
+void			ExpertSystem::fetch_init_fact()
+{
+	for (unsigned long i = 0; i < this->init_fact.size(); i++)
+	{
+		std::cout << this->init_fact[i]->getValue() << std::endl;
+		std::cout << this->init_fact[i]->getState() << std::endl;
+	}
+}
 
 void	 		ExpertSystem::parsing_init_fact(std::string line)
 {
+	std::string				tmp;
 	std::smatch				m;
 	std::regex				e( "#" );
 
 	if ( line[0] == '=' )
 	{
 		std::regex_search( line, m, e );
-		this->init_fact = line.substr( 0, m.position(0) );
-		this->init_fact.erase(std::remove(this->init_fact.begin(), this->init_fact.end(),' '), this->init_fact.end());
+		tmp = line.substr( 0, m.position(0) );
+		for (int i = 1; tmp[i]; i++)
+		{
+			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
+			{
+				this->init_fact.push_back( new Fact( tmp[i], -2 ) );
+			}
+		}
 	}
 }
 
-void	 		ExpertSystem::parsing_init_queries(std::string line)
-{
-	std::smatch				m;
-	std::regex				e( "#" );
+// void	 		ExpertSystem::parsing_init_queries(std::string line)
+// {
+// 	std::smatch				m;
+// 	std::regex				e( "#" );
 
-	if ( line[0] == '?' )
-	{
-		std::regex_search( line, m, e );
-		this->init_queries = line.substr( 0, m.position(0) );
-		this->init_queries.erase(std::remove(this->init_queries.begin(), this->init_queries.end(),' '), this->init_queries.end());
-	}
-}
+// 	if ( line[0] == '?' )
+// 	{
+// 		std::regex_search( line, m, e );
+// 		this->init_queries = line.substr( 0, m.position(0) );
+// 		this->init_queries.erase(std::remove(this->init_queries.begin(), this->init_queries.end(),' '), this->init_queries.end());
+// 	}
+// }
