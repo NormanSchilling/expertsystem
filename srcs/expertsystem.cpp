@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 17:04:48 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/10 12:07:48 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,42 @@ void			ExpertSystem::fetch_init_fact()
 	}
 }
 
+void			ExpertSystem::fetch_init_queries()
+{
+	for (unsigned long i = 0; i < this->init_queries.size(); i++)
+	{
+		std::cout << this->init_queries[i]->getValue() << std::endl;
+		std::cout << this->init_queries[i]->getState() << std::endl;
+	}
+}
+
+int				ExpertSystem::check_rule(std::string line)
+{
+	std::string				tmp;
+	std::smatch				m;
+	std::regex				e( "#" );
+	std::regex				r( "=>" );
+	std::regex				c( "([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*[<]{0,1}[=]{1,1}[>]{1,1}([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*" );
+
+	if ( line[0] != '\n' && line[0] != '\0' )
+	{
+		std::regex_search( line, m, e );
+		tmp = line.substr( 0, m.position(0) );
+		if (std::regex_match (tmp, c))
+			std::cout << "string object matched : " << tmp << std::endl;
+		else
+			std::cout << "error : " << tmp << std::endl;
+	}
+	return (0);
+}
+
 void	 		ExpertSystem::parsing_init_fact(std::string line)
 {
 	std::string				tmp;
 	std::smatch				m;
 	std::regex				e( "#" );
 
-	if ( line[0] == '=' )
+	if ( line[0] == '=')
 	{
 		std::regex_search( line, m, e );
 		tmp = line.substr( 0, m.position(0) );
@@ -74,15 +103,22 @@ void	 		ExpertSystem::parsing_init_fact(std::string line)
 	}
 }
 
-// void	 		ExpertSystem::parsing_init_queries(std::string line)
-// {
-// 	std::smatch				m;
-// 	std::regex				e( "#" );
+void	 		ExpertSystem::parsing_init_queries(std::string line)
+{
+	std::string				tmp;
+	std::smatch				m;
+	std::regex				e( "#" );
 
-// 	if ( line[0] == '?' )
-// 	{
-// 		std::regex_search( line, m, e );
-// 		this->init_queries = line.substr( 0, m.position(0) );
-// 		this->init_queries.erase(std::remove(this->init_queries.begin(), this->init_queries.end(),' '), this->init_queries.end());
-// 	}
-// }
+	if ( line[0] == '?')
+	{
+		std::regex_search( line, m, e );
+		tmp = line.substr( 0, m.position(0) );
+		for (int i = 1; tmp[i]; i++)
+		{
+			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
+			{
+				this->init_fact.push_back( new Fact( tmp[i], -2 ) );
+			}
+		}
+	}
+}

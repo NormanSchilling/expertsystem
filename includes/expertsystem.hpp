@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 17:03:28 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/10 11:15:33 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,10 @@ class ExpertSystem
 		** METHOD
 		*/
 		void			fetch_init_fact();
+		void			fetch_init_queries();
+		int				check_rule(std::string line);
 		void			parsing_init_fact(std::string line);
-		// void			parsing_init_queries(std::string line);
+		void			parsing_init_queries(std::string line);
 
 		/*
 		** GETTER
