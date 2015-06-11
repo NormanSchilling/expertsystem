@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rule.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 14:52:00 by jgil             ###   ########.fr       */
+/*   Updated: 2015/06/11 15:33:33 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Rule::Rule( void )
 	return ;
 }
 
-Rule::Rule( std::string rule ) : rule(rule)
+Rule::Rule( std::string rule, std::vector<Fact*> init_fact ) : rule(rule)
 {
 	std::string				operation;
 	std::string				sign;
@@ -35,10 +35,9 @@ Rule::Rule( std::string rule ) : rule(rule)
 	sign.erase(std::remove(sign.begin(), sign.end(), ' '), sign.end());
 	result = this->rule.substr(m.position(0) + 3, m.position(1) );
 	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
-	std::cout << operation << std::endl;
-	this->operation = Part( operation );
-	std::cout << sign << std::endl;
-	std::cout << result << std::endl;
+
+	this->operation = Part( operation, init_fact );
+
 	return ;
 }
 

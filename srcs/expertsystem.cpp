@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expertsystem.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 14:52:26 by jgil             ###   ########.fr       */
+/*   Updated: 2015/06/11 15:36:26 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 	if ( this == &cpy )
 		return ( *this );
 
-	// this->weight = cpy.getWeight();
 	return ( *this );
 }
 
@@ -49,8 +48,8 @@ void			ExpertSystem::fetch_init_fact()
 {
 	for (unsigned long i = 0; i < this->init_fact.size(); i++)
 	{
-		// std::cout << this->init_fact[i]->getValue() << std::endl;
-		// std::cout << this->init_fact[i]->getState() << std::endl;
+		std::cout << this->init_fact[i]->getValue() << std::endl;
+		std::cout << this->init_fact[i]->getState() << std::endl;
 	}
 }
 
@@ -58,8 +57,8 @@ void			ExpertSystem::fetch_init_queries()
 {
 	for (unsigned long i = 0; i < this->init_queries.size(); i++)
 	{
-		// std::cout << this->init_queries[i]->getValue() << std::endl;
-		// std::cout << this->init_queries[i]->getState() << std::endl;
+		std::cout << this->init_queries[i]->getValue() << std::endl;
+		std::cout << this->init_queries[i]->getState() << std::endl;
 	}
 }
 
@@ -67,7 +66,7 @@ void			ExpertSystem::fetch_rules()
 {
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
-		// std::cout << this->rules[i]->getRule() << std::endl;
+		std::cout << this->rules[i]->getRule() << std::endl;
 	}
 }
 
@@ -85,7 +84,7 @@ int				ExpertSystem::check_syntax_rule(std::string line)
 		if (std::regex_match (tmp, c))
 		{
 			if (this->count_first_bracket(tmp) == this->count_second_bracket(tmp))
-				this->rules.push_back( new Rule( tmp ) );
+				this->rules.push_back( new Rule( tmp, this->init_fact ) );
 			else
 			{
 				std::cout << "error syntax : " << tmp << std::endl;
@@ -159,7 +158,7 @@ void	 		ExpertSystem::parsing_init_queries(std::string line)
 		{
 			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
 			{
-				this->init_fact.push_back( new Fact( tmp[i], -2 ) );
+				this->init_queries.push_back( new Fact( tmp[i], -2 ) );
 			}
 		}
 	}

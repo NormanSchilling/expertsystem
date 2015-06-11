@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:07:01 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 15:26:35 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Rule
 		** CONSTRUCT & DESTRUCT
 		*/
 		Rule( void );
-		Rule(std::string line);
+		Rule(std::string line, std::vector<Fact*> init_fact);
 		Rule( Rule const & cpy );
 		~Rule( void );
 
