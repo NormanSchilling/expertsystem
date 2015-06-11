@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:01:35 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:53:20 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,14 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 /*
 ** METHOD
 */
+void			ExpertSystem::expert()
+{
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		
+	}
+}
+
 void			ExpertSystem::fetch_init_fact()
 {
 	for (unsigned long i = 0; i < this->init_fact.size(); i++)

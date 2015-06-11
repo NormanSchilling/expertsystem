@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:04:54 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:56:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ Rule::Rule( std::string rule, std::vector<Fact*> *init_fact ) : rule(rule)
 	std::smatch				m;
 	std::regex				e( "<=>|=>" );
 
+	this->set = 0;
 	std::regex_search( this->rule, m, e );
 	operation = this->rule.substr(0, m.position(0) );
 	operation.erase(std::remove(operation.begin(), operation.end(), ' '), operation.end());
@@ -36,12 +37,7 @@ Rule::Rule( std::string rule, std::vector<Fact*> *init_fact ) : rule(rule)
 	result = this->rule.substr(m.position(0) + 3, m.position(1) );
 	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
 
-	for (unsigned long i = 0; i < init_fact->size(); i++)
-	{
-		std::cout << *init_fact[i].getValue() << std::endl;
-		std::cout << *init_fact[i].getState() << std::endl;
-	}
-	// this->operation = Part( operation, init_fact );
+	this->operation = Part( operation, init_fact );
 
 	return ;
 }

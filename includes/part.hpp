@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 16:18:56 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 15:59:53 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:13:05 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ class Part
 		** CONSTRUCT & DESTRUCT
 		*/
 		Part( void );
-		Part(std::string part, std::vector<Fact*> init_fact);
+		Part(std::string part, std::vector<Fact*> *init_fact);
 		Part( Part const & cpy );
 		~Part( void );
 
@@ -43,7 +43,7 @@ class Part
 		/*
 		** METHOD
 		*/
-		void		assign_fact_state(std::vector<Fact*> init_fact);
+		void		assign_fact_state(std::vector<Fact*> *init_fact);
 
 	private:
 		std::string		part;		
