@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:17:05 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 12:28:42 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,6 @@ int				ExpertSystem::check_syntax_rule(std::string line)
 	std::string				tmp;
 	std::smatch				m;
 	std::regex				e( "#" );
-	std::regex				r( "=>" );
 	std::regex				c( "([\\s]{0,1}[(]{0,1}[!]{0,1}[A-Z]{1,1}[)]{0,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*[<]{0,1}[=]{1,1}[>]{1,1}([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*" );
 
 	if ( line[0] != '\n' && line[0] != '\0' && line[0] != '=' && line[0] != '?')
@@ -140,7 +139,7 @@ void	 		ExpertSystem::parsing_init_fact(std::string line)
 		{
 			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
 			{
-				this->init_fact.push_back( new Fact( tmp[i], -2 ) );
+				this->init_fact.push_back( new Fact( tmp[i], 1 ) );
 			}
 		}
 	}

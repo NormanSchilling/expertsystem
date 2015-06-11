@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:08:11 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 13:57:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,24 @@ Rule::Rule( void )
 
 Rule::Rule( std::string rule ) : rule(rule)
 {
+	std::string				operation;
+	std::string				sign;
+	std::string				result;
+	std::smatch				m;
+	std::regex				e( "<=>|=>" );
+
+	std::regex_search( this->rule, m, e );
+	operation = this->rule.substr(0, m.position(0) );
+	operation.erase(std::remove(operation.begin(), operation.end(), ' '), operation.end());
+	sign = this->rule.substr(m.position(0), 3 );
+	sign.erase(std::remove(sign.begin(), sign.end(), ' '), sign.end());
+	result = this->rule.substr(m.position(0) + 3, m.position(1) );
+	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
+	std::cout << operation << std::endl;
+	this->operation = Part( operation );
+	std::cout << sign << std::endl;
+	std::cout << result << std::endl;
+
 	return ;
 }
 
