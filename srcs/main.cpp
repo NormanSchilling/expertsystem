@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:34:37 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:17:12 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 13:57:14 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,6 @@ int		main(int argc, char **argv)
 				e->parsing_init_queries(line);
 			}
 		}
-		e->fetch_init_fact();
-		e->fetch_init_queries();
-		e->fetch_rules();
 		delete(e);
 	}
 	else

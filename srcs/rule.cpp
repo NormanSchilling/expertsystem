@@ -6,7 +6,7 @@
 /*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 13:38:28 by jgil             ###   ########.fr       */
+/*   Updated: 2015/06/11 14:52:00 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,14 +22,23 @@ Rule::Rule( void )
 
 Rule::Rule( std::string rule ) : rule(rule)
 {
-	std::string		tmp;
-	std::smatch		m;
-	std::regex		r( "[<]{0,1}=>" );
+	std::string				operation;
+	std::string				sign;
+	std::string				result;
+	std::smatch				m;
+	std::regex				e( "<=>|=>" );
 
-	std::regex_search(this->rule, m, r);
-	tmp = this->rule.substr(m.position(0), 3);
-	tmp.erase(std::remove(tmp.begin(), tmp.end(), ' '), tmp.end());
-	this->sign = tmp;
+	std::regex_search( this->rule, m, e );
+	operation = this->rule.substr(0, m.position(0) );
+	operation.erase(std::remove(operation.begin(), operation.end(), ' '), operation.end());
+	sign = this->rule.substr(m.position(0), 3 );
+	sign.erase(std::remove(sign.begin(), sign.end(), ' '), sign.end());
+	result = this->rule.substr(m.position(0) + 3, m.position(1) );
+	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
+	std::cout << operation << std::endl;
+	this->operation = Part( operation );
+	std::cout << sign << std::endl;
+	std::cout << result << std::endl;
 	return ;
 }
 
