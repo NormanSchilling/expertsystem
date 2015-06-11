@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rule.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:08:11 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 13:38:28 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,14 @@ Rule::Rule( void )
 
 Rule::Rule( std::string rule ) : rule(rule)
 {
+	std::string		tmp;
+	std::smatch		m;
+	std::regex		r( "[<]{0,1}=>" );
+
+	std::regex_search(this->rule, m, r);
+	tmp = this->rule.substr(m.position(0), 3);
+	tmp.erase(std::remove(tmp.begin(), tmp.end(), ' '), tmp.end());
+	this->sign = tmp;
 	return ;
 }
 

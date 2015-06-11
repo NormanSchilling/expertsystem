@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expertsystem.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 11:17:05 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 12:17:05 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void			ExpertSystem::fetch_init_fact()
 {
 	for (unsigned long i = 0; i < this->init_fact.size(); i++)
 	{
-		std::cout << this->init_fact[i]->getValue() << std::endl;
-		std::cout << this->init_fact[i]->getState() << std::endl;
+		// std::cout << this->init_fact[i]->getValue() << std::endl;
+		// std::cout << this->init_fact[i]->getState() << std::endl;
 	}
 }
 
@@ -58,8 +58,8 @@ void			ExpertSystem::fetch_init_queries()
 {
 	for (unsigned long i = 0; i < this->init_queries.size(); i++)
 	{
-		std::cout << this->init_queries[i]->getValue() << std::endl;
-		std::cout << this->init_queries[i]->getState() << std::endl;
+		// std::cout << this->init_queries[i]->getValue() << std::endl;
+		// std::cout << this->init_queries[i]->getState() << std::endl;
 	}
 }
 
@@ -67,7 +67,7 @@ void			ExpertSystem::fetch_rules()
 {
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
-		std::cout << this->rules[i]->getRule() << std::endl;
+		// std::cout << this->rules[i]->getRule() << std::endl;
 	}
 }
 
@@ -140,7 +140,7 @@ void	 		ExpertSystem::parsing_init_fact(std::string line)
 		{
 			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
 			{
-				this->init_fact.push_back( new Fact( tmp[i], -2 ) );
+				this->init_fact.push_back( new Fact( tmp[i], 1 ) );
 			}
 		}
 	}
