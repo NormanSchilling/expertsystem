@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:34:37 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/10 11:18:38 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 11:17:12 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,14 @@ int		main(int argc, char **argv)
 		{
 			if ( line[0] != '#' )
 			{
-				e->check_rule(line);
+				e->check_syntax_rule(line);
 				e->parsing_init_fact(line);
 				e->parsing_init_queries(line);
 			}
 		}
-		std::cout << std::endl;
-		std::cout << std::endl;
 		e->fetch_init_fact();
 		e->fetch_init_queries();
+		e->fetch_rules();
 		delete(e);
 	}
 	else

@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:19:27 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 11:08:11 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,12 @@ Rule::Rule( void )
 {
 	return ;
 }
+
+Rule::Rule( std::string rule ) : rule(rule)
+{
+	return ;
+}
+
 
 Rule::Rule( Rule const & cpy )
 {
@@ -38,6 +44,13 @@ Rule &	Rule::operator=( Rule const & cpy )
 	if ( this == &cpy )
 		return ( *this );
 
-	// this->weight = cpy.getWeight();
 	return ( *this );
+}
+
+/*
+** GETTER
+*/
+std::string	Rule::getRule(void)
+{
+	return (this->rule);
 }

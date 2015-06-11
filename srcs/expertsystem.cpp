@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/10 12:07:48 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 11:17:05 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,24 +63,67 @@ void			ExpertSystem::fetch_init_queries()
 	}
 }
 
-int				ExpertSystem::check_rule(std::string line)
+void			ExpertSystem::fetch_rules()
+{
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		std::cout << this->rules[i]->getRule() << std::endl;
+	}
+}
+
+int				ExpertSystem::check_syntax_rule(std::string line)
 {
 	std::string				tmp;
 	std::smatch				m;
 	std::regex				e( "#" );
 	std::regex				r( "=>" );
-	std::regex				c( "([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*[<]{0,1}[=]{1,1}[>]{1,1}([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*" );
+	std::regex				c( "([\\s]{0,1}[(]{0,1}[!]{0,1}[A-Z]{1,1}[)]{0,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*[<]{0,1}[=]{1,1}[>]{1,1}([\\s]{0,1}[!]{0,1}[A-Z]{1,1}[\\s]{0,1}[+^|]{0,1}[\\s]{0,1})*" );
 
-	if ( line[0] != '\n' && line[0] != '\0' )
+	if ( line[0] != '\n' && line[0] != '\0' && line[0] != '=' && line[0] != '?')
 	{
 		std::regex_search( line, m, e );
 		tmp = line.substr( 0, m.position(0) );
 		if (std::regex_match (tmp, c))
-			std::cout << "string object matched : " << tmp << std::endl;
+		{
+			if (this->count_first_bracket(tmp) == this->count_second_bracket(tmp))
+				this->rules.push_back( new Rule( tmp ) );
+			else
+			{
+				std::cout << "error syntax : " << tmp << std::endl;
+				exit(-1);
+			}
+		}
 		else
-			std::cout << "error : " << tmp << std::endl;
+		{
+			std::cout << "error syntax : " << tmp << std::endl;
+			exit(-1);
+		}
 	}
 	return (0);
+}
+
+int				ExpertSystem::count_first_bracket(std::string tmp)
+{
+	int		count = 0;
+
+	for (int i = 0; tmp[i] != '\0'; i++)
+	{
+		if (tmp[i] == '(')
+			count++;
+	}
+	return (count);
+}
+
+int				ExpertSystem::count_second_bracket(std::string tmp)
+{
+	int		count = 0;
+
+	for (int i = 0; tmp[i] != '\0'; i++)
+	{
+		if (tmp[i] == ')')
+			count++;
+	}
+	return (count);
 }
 
 void	 		ExpertSystem::parsing_init_fact(std::string line)

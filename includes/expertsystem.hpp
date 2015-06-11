@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/10 11:15:33 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 11:17:01 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,10 @@ class ExpertSystem
 		*/
 		void			fetch_init_fact();
 		void			fetch_init_queries();
-		int				check_rule(std::string line);
+		void			fetch_rules();
+		int				check_syntax_rule(std::string line);
+		int				count_first_bracket(std::string tmp);
+		int				count_second_bracket(std::string tmp);
 		void			parsing_init_fact(std::string line);
 		void			parsing_init_queries(std::string line);
 
