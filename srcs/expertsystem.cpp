@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 15:36:26 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:01:35 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				ExpertSystem::check_syntax_rule(std::string line)
 		if (std::regex_match (tmp, c))
 		{
 			if (this->count_first_bracket(tmp) == this->count_second_bracket(tmp))
-				this->rules.push_back( new Rule( tmp, this->init_fact ) );
+				this->rules.push_back( new Rule( tmp, &(this->init_fact) ) );
 			else
 			{
 				std::cout << "error syntax : " << tmp << std::endl;

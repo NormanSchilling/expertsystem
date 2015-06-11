@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 15:41:36 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:00:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,24 +56,31 @@ void		Part::assign_fact_state(std::vector<Fact*> init_fact)
 {
 	int k;
 
-	for (int j = 0; this->part[j] != '\0'; j++)
+	k = 0;
+	for (unsigned long i = 0; i < init_fact.size(); i++)
 	{
-		if ( this->part[j] >= 'A' && this->part[j] <= 'Z')
-		{
-			k = 0;
-			for (unsigned long i = 0; i < init_fact.size(); i++)
-			{
-				if ( init_fact[i]->getValue() == this->part[j] )
-				{
-					k = -1;
-					break ;
-				}
-			}
-			if (k != -1)
-			{
-				std::cout <<  this->part[j] << std::endl;
-				init_fact.push_back( new Fact( this->part[j], -2 ) );
-			}
-		}
+		std::cout << "BEFORE : " << init_fact[i]->getValue() << std::endl;
 	}
+
+	// for (int j = 0; this->part[j] != '\0'; j++)
+	// {
+	// 	if ( this->part[j] >= 'A' && this->part[j] <= 'Z')
+	// 	{
+	// 		k = 0;
+	// 		for (unsigned long i = 0; i < init_fact.size(); i++)
+	// 		{
+	// 			if ( init_fact[i]->getValue() == this->part[j] )
+	// 			{
+	// 				std::cout << "IN : " << init_fact[i]->getValue() << std::endl;
+	// 				k = -1;
+	// 				break ;
+	// 			}
+	// 		}
+	// 		if (k == 0)
+	// 		{
+	// 			std::cout <<  "OUT : " << this->part[j] << std::endl;
+	// 			init_fact.push_back( new Fact( this->part[j], -2 ) );
+	// 		}
+	// 	}
+	// }
 }

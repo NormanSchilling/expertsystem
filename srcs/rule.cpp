@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 15:33:33 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 16:04:54 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ Rule::Rule( void )
 	return ;
 }
 
-Rule::Rule( std::string rule, std::vector<Fact*> init_fact ) : rule(rule)
+Rule::Rule( std::string rule, std::vector<Fact*> *init_fact ) : rule(rule)
 {
 	std::string				operation;
 	std::string				sign;
@@ -36,7 +36,12 @@ Rule::Rule( std::string rule, std::vector<Fact*> init_fact ) : rule(rule)
 	result = this->rule.substr(m.position(0) + 3, m.position(1) );
 	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
 
-	this->operation = Part( operation, init_fact );
+	for (unsigned long i = 0; i < init_fact->size(); i++)
+	{
+		std::cout << *init_fact[i].getValue() << std::endl;
+		std::cout << *init_fact[i].getState() << std::endl;
+	}
+	// this->operation = Part( operation, init_fact );
 
 	return ;
 }
