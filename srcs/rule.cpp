@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:56:34 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 11:17:23 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ Rule::Rule( std::string rule, std::vector<Fact*> *init_fact ) : rule(rule)
 	result = this->rule.substr(m.position(0) + 3, m.position(1) );
 	result.erase(std::remove(result.begin(), result.end(), ' '), result.end());
 
-	this->operation = Part( operation, init_fact );
+	this->operation = new Part( operation, init_fact );
 
 	return ;
 }
@@ -70,4 +70,9 @@ Rule &	Rule::operator=( Rule const & cpy )
 std::string	Rule::getRule(void)
 {
 	return (this->rule);
+}
+
+Part		*Rule::getOperation(void)
+{
+	return (this->operation);
 }

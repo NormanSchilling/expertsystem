@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:35:31 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 17:23:48 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,4 +73,12 @@ void		Part::assign_fact_state(std::vector<Fact*> *init_fact)
 			}
 		}
 	}
+}
+
+/*
+** GETTER
+*/
+std::string	Part::getPart(void)
+{
+	return (this->part);
 }
