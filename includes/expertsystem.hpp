@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 14:27:49 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 14:34:35 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ class ExpertSystem
 		std::string		resolve_and(std::string numeric);
 		std::string		resolve_or(std::string numeric);
 		std::string		resolve_xor(std::string numeric);
+		std::string		numerize(std::string part);
 		void			fetch_init_fact(void);
 		void			fetch_init_queries(void);
 		void			fetch_rules(void);

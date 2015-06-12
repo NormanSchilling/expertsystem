@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 14:30:26 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 14:35:25 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,15 +46,25 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 */
 void			ExpertSystem::expert()
 {
-
+	// std::string		numeric;
 	// for (unsigned long i = 0; i < this->rules.size(); i++)
 	// {
+
 		std::string numeric = "1+(1+1+1)|(0|1)";
 		std::cout << count_first_bracket(numeric) << std::endl;
 		for (int j = 0; j < count_first_bracket(numeric); j++ )
 		{
 			get_bracket(numeric);
 		}
+	// }
+
+	// numeric = numerize(this->rules[i]->getOperation()->getPart());
+	// if (numeric.size() > 0)
+	// {
+	// 	std::cout << this->rules[i]->getOperation()->getPart() << std::endl;
+	// 	std::cout << numeric << std::endl;
+	// // get_bracket(this->rules[i]);
+	// // std::cout << "TEST : " << this->rules[i]->getOperation()->getPart() << std::endl;
 	// }
 }
 
@@ -101,8 +111,49 @@ void			ExpertSystem::get_bracket(std::string numeric)
 		{
 			bracket = simplification_bracket(bracket, i);
 			break ;
-		}
+		}	
 	}
+}
+
+std::string		ExpertSystem::numerize(std::string part)
+{
+	int				j;
+	int 			k = 0;
+	int				state;
+	std::string		numeric(part.size(), 0);
+
+	for (int i = 0; part[i]; i++)
+	{
+		if (part[i] == '!' && part[i + 1] && part[i + 1] >= 'A' && part[i + 1] <= 'Z')
+			i++;
+		if (part[i] >= 'A' && part[i] <= 'Z')
+		{
+			j = 0;
+			while (this->init_fact[j]->getValue() != part[i])
+				j++;
+			state = this->init_fact[j]->getState();
+
+			if (state == -1)
+				part[i] = '2';
+			else if (i == 0 || part[i - 1] != '!')
+			{
+				if (state == 0 || state == -2)
+					part[i] = '0';
+				else if (state == 1)
+					part[i] = '1';
+			}
+			else
+			{
+				if (state == 0 || state == -2)
+					part[i] = '1';
+				else if (state == 1)
+					part[i] = '0';
+			}
+		}
+		numeric[k] = part[i];
+		k++;
+	}
+	return (numeric);
 }
 
 std::string		ExpertSystem::simplification_bracket(std::string numeric, int c)
