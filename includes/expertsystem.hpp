@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 17:07:01 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 11:07:49 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ class ExpertSystem
 		** METHOD
 		*/
 		void			expert(void);
-		
+		void			get_bracket(Rule rule);
 
 		void			fetch_init_fact(void);
 		void			fetch_init_queries(void);

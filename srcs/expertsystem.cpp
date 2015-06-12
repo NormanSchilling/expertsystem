@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:53:20 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 11:11:15 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,8 +48,13 @@ void			ExpertSystem::expert()
 {
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
-		
+		get_bracket(this->rules[i]);
 	}
+}
+
+void			ExpertSystem::get_bracket(Rule rule)
+{
+
 }
 
 void			ExpertSystem::fetch_init_fact()
