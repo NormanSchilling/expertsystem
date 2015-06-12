@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 14:35:25 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 16:18:56 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,26 +46,26 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 */
 void			ExpertSystem::expert()
 {
-	// std::string		numeric;
-	// for (unsigned long i = 0; i < this->rules.size(); i++)
-	// {
+	int				number_bracket;
+	std::string		numeric;
 
-		std::string numeric = "1+(1+1+1)|(0|1)";
-		std::cout << count_first_bracket(numeric) << std::endl;
-		for (int j = 0; j < count_first_bracket(numeric); j++ )
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		numeric = numerize(this->rules[i]->getOperation()->getPart());
+		number_bracket = count_first_bracket(numeric);
+		for (int j = 0; j < number_bracket; j++ )
 		{
-			get_bracket(numeric);
+			numeric = get_bracket(numeric);
+			std::cout << "bracket = " << numeric << std::endl;
 		}
-	// }
+		numeric = resolve_and(numeric);
+		std::cout << "resolve_and = " << numeric << std::endl;
+		numeric = resolve_or(numeric);
+		std::cout << "resolve_or = " << numeric << std::endl;
+		numeric = resolve_xor(numeric);
+		std::cout << numeric << std::endl;
+	}
 
-	// numeric = numerize(this->rules[i]->getOperation()->getPart());
-	// if (numeric.size() > 0)
-	// {
-	// 	std::cout << this->rules[i]->getOperation()->getPart() << std::endl;
-	// 	std::cout << numeric << std::endl;
-	// // get_bracket(this->rules[i]);
-	// // std::cout << "TEST : " << this->rules[i]->getOperation()->getPart() << std::endl;
-	// }
 }
 
 std::string		ExpertSystem::resolve_and(std::string numeric)
@@ -75,15 +75,19 @@ std::string		ExpertSystem::resolve_and(std::string numeric)
 
 	for (int i = 0; numeric[i] != '\0'; i++)
 	{
-		if (numeric[i] == '+')
+		if (numeric[i]  == '+')
 		{
 			k--;
 			if (numeric[i - 1] == '1' && numeric[i + 1] == '1')
 				resolved[k] = '1';
-			else
+			else if (numeric[i - 1] == '0' || numeric[i + 1] == '0')
 				resolved[k] = '0';
+			else 
+				resolved[k] = '2';
+			i++;
 		}
-		resolved[k] = numeric[i];
+		else
+			resolved[k] = numeric[i];
 		k++;
 	}
 	return (resolved);
@@ -91,28 +95,102 @@ std::string		ExpertSystem::resolve_and(std::string numeric)
 
 std::string		ExpertSystem::resolve_or(std::string numeric)
 {
-	// (void)numeric;
-	return (numeric);
+	std::string		resolved(numeric.size(), 0);
+	int				k = 0;
+
+	for (int i = 0; numeric[i] != '\0'; i++)
+	{
+		if (numeric[i]  == '|')
+		{
+			k--;
+			if (numeric[i - 1] == '1' || numeric[i + 1] == '1')
+				resolved[k] = '1';
+			else if (numeric[i - 1] == '0' && numeric[i + 1] == '0')
+				resolved[k] = '0';
+			else 
+				resolved[k] = '2';
+			i++;
+		}
+		else
+			resolved[k] = numeric[i];
+		k++;
+	}
+	return (resolved);
 }
 
 std::string		ExpertSystem::resolve_xor(std::string numeric)
 {
-	// (void)numeric;
-	return (numeric);
+	std::string		resolved(numeric.size(), 0);
+	int				k = 0;
+
+	for (int i = 0; numeric[i] != '\0'; i++)
+	{
+		if (numeric[i]  == '^')
+		{
+			k--;
+			if (numeric[i - 1] == '2' || numeric[i + 1] == '2')
+				resolved[k] = '2';
+			else if (numeric[i - 1] == numeric[i + 1])
+				resolved[k] = '0';
+			else
+				resolved[k] = '1';
+			i++;
+		}
+		else
+			resolved[k] = numeric[i];
+		k++;
+	}
+
+	return (resolved);
 }
 
-void			ExpertSystem::get_bracket(std::string numeric)
+std::string			ExpertSystem::get_bracket(std::string numeric)
 {
 	std::string		bracket(numeric.size(), 0);
+	std::string		new_numeric(numeric.size(), 0);
+	int				k = 0;
+	int				count = 0;
 
 	for (int i = 0; numeric[i] != '\0'; i++)
 	{
 		if (numeric[i] == '(')
 		{
-			bracket = simplification_bracket(bracket, i);
+			bracket = simplification_bracket(numeric, i);
 			break ;
 		}	
 	}
+
+	for (int i = 0; numeric[i] != '\0'; i++)
+	{
+		if (numeric[i] == '(' && count == 0)
+		{
+			while (numeric[i] != ')')
+				i++;
+			new_numeric[k] = resolve_bracket(bracket);
+			count++;
+		}
+		else
+			new_numeric[k] = numeric[i];
+		k++;
+	}
+
+	return (new_numeric);
+}
+
+std::string		ExpertSystem::simplification_bracket(std::string numeric, int c)
+{
+	std::string		tmp(numeric.size(), 0);
+	int				j;
+
+	j = 0;
+	c++;
+	for (int i = c; numeric[i] != ')'; i++)
+	{
+		tmp[j] = numeric[i];
+		j++;
+	}
+	tmp[j] = '\0';
+	return (tmp);
 }
 
 std::string		ExpertSystem::numerize(std::string part)
@@ -156,31 +234,18 @@ std::string		ExpertSystem::numerize(std::string part)
 	return (numeric);
 }
 
-std::string		ExpertSystem::simplification_bracket(std::string numeric, int c)
-{
-	std::string		tmp(numeric.size(), 0);
-	int				j;
 
-	j = 0;
-	c++;
-	for (int i = c; numeric[i] != ')'; i++)
-	{
-		tmp[j] = numeric[i];
-		j++;
-	}
-	return (tmp);
-}
-
-std::string		ExpertSystem::resolve_bracket(std::string bracket)
+char		ExpertSystem::resolve_bracket(std::string bracket)
 {
 	std::string		numeric;
 
 	numeric = resolve_and(bracket);
-	std::cout << numeric << std::endl;
-	return (numeric);
+	numeric = resolve_or(numeric);
+	numeric = resolve_xor(numeric);
+	// std::cout << numeric << std::endl;
+
+	return (numeric[0]);
 }
-
-
 
 void			ExpertSystem::fetch_init_fact()
 {
