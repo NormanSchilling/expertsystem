@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expertsystem.hpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 11:07:49 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 11:42:13 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class ExpertSystem
 		** METHOD
 		*/
 		void			expert(void);
+		std::string		numerize(std::string part);
 		void			get_bracket(Rule rule);
 
 		void			fetch_init_fact(void);

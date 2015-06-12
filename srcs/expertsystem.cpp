@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expertsystem.cpp                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 11:17:41 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/12 12:40:40 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,58 @@ void			ExpertSystem::expert()
 {
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
+		std::string		numeric;
+
+		numeric = numerize(this->rules[i]->getOperation()->getPart());
+		if (numeric.size() > 0)
+		{
+			std::cout << this->rules[i]->getOperation()->getPart() << std::endl;
+			std::cout << numeric << std::endl;
 		// get_bracket(this->rules[i]);
-		std::cout << "TEST : " << this->rules[i]->getOperation()->getPart() << std::endl;
+		// std::cout << "TEST : " << this->rules[i]->getOperation()->getPart() << std::endl;
+		}
 	}
+}
+
+std::string		ExpertSystem::numerize(std::string part)
+{
+	int				j;
+	int 			k = 0;
+	int				state;
+	std::string		numeric(part.size(), 0);
+
+	for (int i = 0; part[i]; i++)
+	{
+		if (part[i] == '!' && part[i + 1] && part[i + 1] >= 'A' && part[i + 1] <= 'Z')
+			i++;
+		if (part[i] >= 'A' && part[i] <= 'Z')
+		{
+			j = 0;
+			while (this->init_fact[j]->getValue() != part[i])
+				j++;
+			state = this->init_fact[j]->getState();
+
+			if (state == -1)
+				part[i] = '2';
+			else if (i == 0 || part[i - 1] != '!')
+			{
+				if (state == 0 || state == -2)
+					part[i] = '0';
+				else if (state == 1)
+					part[i] = '1';
+			}
+			else
+			{
+				if (state == 0 || state == -2)
+					part[i] = '1';
+				else if (state == 1)
+					part[i] = '0';
+			}
+		}
+		numeric[k] = part[i];
+		k++;
+	}
+	return (numeric);
 }
 
 void			ExpertSystem::get_bracket(Rule rule)
