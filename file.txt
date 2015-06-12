@@ -2,7 +2,7 @@
 # all the required rules and symbols, along with the bonus ones, will be
 # shown here. spacing is not important
 
-C + (A | B) => D # C implies E
+C + (A | B) | (A + B) => D # C implies E
 A + B + C => D # A and B and C implies D
 A + B => D # A or B implies C
 D ^ !B => V # A and not B implies F
