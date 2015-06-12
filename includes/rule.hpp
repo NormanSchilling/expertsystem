@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rule.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:56:18 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 17:14:11 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@ class Rule
 		** GETTER
 		*/
 		std::string		getRule(void);
+		Part 			getOperation(void);
 
 	private:
 		std::string		rule;

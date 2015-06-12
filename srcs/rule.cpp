@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rule.cpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
+/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:56:34 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/11 17:15:44 by jgil             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,4 +70,9 @@ Rule &	Rule::operator=( Rule const & cpy )
 std::string	Rule::getRule(void)
 {
 	return (this->rule);
+}
+
+Part		Rule::getOperation(void)
+{
+	return (this->operation);
 }
