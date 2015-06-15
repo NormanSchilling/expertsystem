@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:34:37 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 16:52:21 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/15 13:15:37 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ int		main(int argc, char **argv)
 				e->check_syntax_rule(line);
 		}
 		e->expert();
+		// e->fetch_init_fact();
 		delete(e);
 	}
 	else

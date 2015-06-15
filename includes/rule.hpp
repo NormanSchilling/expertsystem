@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/12 11:17:56 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/15 15:18:48 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,16 +43,21 @@ class Rule
 		/*
 		** GETTER
 		*/
+		void			count_truefact(std::string operation, std::vector<Fact*> *init_fact);
 		std::string		getRule(void);
 		Part 			*getOperation(void);
 
 	private:
-		std::string		rule;
-		std::string		sign;
-		Part			*operation;
-		// Part			*result;
-		int				set;
-
+		std::string			rule;
+		std::string			sign;
+		float				number_truefact;
+		float				number_fact;
+		float				ratio;
+		Part				*operation;
+		Part				*result;
+		int					set;
+		std::vector<Fact*>	fact_left;
+		std::vector<Fact*>	fact_right;
 };
 
 #endif

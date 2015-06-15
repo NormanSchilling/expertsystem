@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   part.hpp                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jgil <jgil@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 16:18:56 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/11 17:15:21 by jgil             ###   ########.fr       */
+/*   Updated: 2015/06/15 13:21:28 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 #include <string>
 #include <regex>
 #include <vector>
-#include <operation.hpp>
+#include <fact.hpp>
 
 class Part
 {
@@ -51,8 +51,7 @@ class Part
 		std::string		getPart(void);
 
 	private:
-		std::string		part;		
-		Operation 		operation;
+		std::string		part;
 
 };
 

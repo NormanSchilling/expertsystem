@@ -10,8 +10,6 @@ INC_DIR		=	includes/
 
 INC_FILES	=	expertsystem.hpp \
 				fact.hpp \
-				operation.hpp \
-				operator.hpp \
 				rule.hpp \
 				part.hpp
 
@@ -22,8 +20,6 @@ SRC_DIR		=	srcs/
 FILES		=	main.cpp \
 				expertsystem.cpp \
 				fact.cpp \
-				operation.cpp \
-				operator.cpp \
 				rule.cpp \
 				part.cpp
 
