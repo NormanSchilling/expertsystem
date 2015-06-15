@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/15 15:31:02 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/15 15:53:10 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ void			ExpertSystem::expert()
 	int				number_bracket;
 	std::string		numeric;
 
+
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
 		numeric = numerize(this->rules[i]->getOperation()->getPart());
@@ -66,6 +67,24 @@ void			ExpertSystem::expert()
 		std::cout << numeric << std::endl;
 	}
 
+}
+
+void			ExpertSystem::get_max_ratio(void)
+{
+	float	ratio_max = 0.f;
+	int		ratio_nbr = 0;
+
+	for (unsigned long i; i < this->rules.size(); i++)
+	{
+		if (this->rules[i]->getRatio() > ratio_max)
+		{
+			ratio_max = this->rules[i]->getRatio();
+			ratio_nbr = 0;
+		}
+		else if (this->rules[i]->getRatio() == ratio_max)
+			ratio_nbr++;
+	}
+	this->
 }
 
 std::string		ExpertSystem::resolve_and(std::string numeric)
