@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 12:16:03 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 16:54:19 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ class Rule
 		Part 			*getOperation(void);
 		Part 			*getResult(void);
 		float			getRatio(void);
+		int				getNumberFact(void);
 
 		/*
 		** SETTER

@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 15:22:48 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 16:57:11 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int				ExpertSystem::check_contradictions()
 		set_initial_fact(numeric, this->rules[i]);
 		for (unsigned long k = 0; k < this->init_fact.size(); k++)
 		{
-			if (this->init_fact[k]->getState() != verif[i])
+			if (this->init_fact[k]->getState() != verif[k])
 				return (1);
 		}
 	}
@@ -96,12 +96,12 @@ void			ExpertSystem::expert()
 	int				number_bracket;
 	std::string		numeric;
 
-	this->get_max_ratio();
 	this->get_rules_set();
 	while (this->number_rules_set != this->rules.size() )
 	{
 		for (unsigned long i = 0; i < this->rules.size(); i++)
 		{
+			this->get_max_ratio();
 			if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio())
 			{
 				numeric = numerize(this->rules[i]->getOperation()->getPart());
@@ -115,7 +115,6 @@ void			ExpertSystem::expert()
 				this->rules[i]->setSet(1);
 			}
 		}
-		this->get_max_ratio();
 		this->get_rules_set();
 	}
 	if (!check_contradictions())
@@ -140,13 +139,13 @@ void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 				{
 					tmp = static_cast<int>(numeric[0]) - 48;
 					this->init_fact[k]->setState(tmp);
-				}
-				if (i > 0)
-				{
-					if (result[i - 1] == '!' && tmp == 0)
-						this->init_fact[k]->setState(1);
-					else if (result[i - 1] == '!' && tmp == 1)
-						this->init_fact[k]->setState(0);
+					if (i > 0)
+					{
+						if (result[i - 1] == '!' && tmp == 0)
+							this->init_fact[k]->setState(1);
+						else if (result[i - 1] == '!' && tmp == 1)
+							this->init_fact[k]->setState(0);
+					}
 				}
 			}
 		}
@@ -168,6 +167,9 @@ void			ExpertSystem::get_max_ratio(void)
 {
 	float	ratio_max = 0.f;
 	int		ratio_nbr = 1;
+
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+		this->rules[i]->count_truefact(this->rules[i]->getOperation()->getPart(), &(this->init_fact));
 
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
@@ -258,7 +260,6 @@ std::string		ExpertSystem::resolve_xor(std::string numeric)
 			resolved[k] = numeric[i];
 		k++;
 	}
-
 	return (resolved);
 }
 
@@ -360,17 +361,16 @@ char		ExpertSystem::resolve_bracket(std::string bracket)
 	numeric = resolve_and(bracket);
 	numeric = resolve_or(numeric);
 	numeric = resolve_xor(numeric);
-	// std::cout << numeric << std::endl;
 
 	return (numeric[0]);
 }
 
 void			ExpertSystem::fetch_init_fact()
 {
+	std::cout << "FETCH_INIT_FACT" << std::endl;
 	for (unsigned long i = 0; i < this->init_fact.size(); i++)
 	{
-		std::cout << this->init_fact[i]->getValue() << std::endl;
-		std::cout << this->init_fact[i]->getState() << std::endl;
+		std::cout << this->init_fact[i]->getValue() << " =  " << this->init_fact[i]->getState() << std::endl;
 	}
 }
 
