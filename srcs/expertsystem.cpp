@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 12:28:16 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 15:22:48 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,53 @@ ExpertSystem &	ExpertSystem::operator=( ExpertSystem const & cpy )
 /*
 ** METHOD
 */
+
+void			ExpertSystem::queries_answer()
+{
+	for (unsigned long i = 0; i < this->init_queries.size(); i++)
+	{
+		for (unsigned long k = 0; k < this->init_fact.size(); k++)
+		{
+			if ( this->init_queries[i]->getValue() == this->init_fact[k]->getValue() )
+			{
+				if (this->init_fact[k]->getState() == 1)
+					std::cout << this->init_fact[k]->getValue() << " is true !" << std::endl;
+				else if (this->init_fact[k]->getState() == 0 || this->init_fact[k]->getState() == -2)
+					std::cout << this->init_fact[k]->getValue() << " is false !" << std::endl;
+				else if (this->init_fact[k]->getState() == 2)
+					std::cout << this->init_fact[k]->getValue() << " is undetermined !" << std::endl;
+			}
+		}
+	}
+}
+
+int				ExpertSystem::check_contradictions()
+{
+	std::vector<int>	verif;
+	std::string			numeric;
+	int					number_bracket;
+
+	for (unsigned long i = 0; i < this->init_fact.size(); i++)
+		verif.push_back(this->init_fact[i]->getState());
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		numeric = numerize(this->rules[i]->getOperation()->getPart());
+		number_bracket = count_first_bracket(numeric);
+		for (int j = 0; j < number_bracket; j++ )
+			numeric = get_bracket(numeric);
+		numeric = resolve_and(numeric);
+		numeric = resolve_or(numeric);
+		numeric = resolve_xor(numeric);
+		set_initial_fact(numeric, this->rules[i]);
+		for (unsigned long k = 0; k < this->init_fact.size(); k++)
+		{
+			if (this->init_fact[k]->getState() != verif[i])
+				return (1);
+		}
+	}
+	return (0);
+}
+
 void			ExpertSystem::expert()
 {
 	int				number_bracket;
@@ -60,39 +107,47 @@ void			ExpertSystem::expert()
 				numeric = numerize(this->rules[i]->getOperation()->getPart());
 				number_bracket = count_first_bracket(numeric);
 				for (int j = 0; j < number_bracket; j++ )
-				{
 					numeric = get_bracket(numeric);
-					std::cout << "bracket = " << numeric << std::endl;
-				}
 				numeric = resolve_and(numeric);
-				std::cout << "resolve_and = " << numeric << std::endl;
 				numeric = resolve_or(numeric);
-				std::cout << "resolve_or = " << numeric << std::endl;
 				numeric = resolve_xor(numeric);
-				std::cout << numeric << std::endl;
 				set_initial_fact(numeric, this->rules[i]);
 				this->rules[i]->setSet(1);
-				this->fetch_init_fact();
 			}
 		}
 		this->get_max_ratio();
 		this->get_rules_set();
 	}
-
+	if (!check_contradictions())
+		this->queries_answer();
+	else
+		std::cout << "Some rules are conflicting !" << std::endl;
+	return ;
 }
 
 void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 {
 	std::string		result = rule->getResult()->getPart();
+	int				tmp;
 
 	for (int i = 0; result[i]; i++)
 	{
 		if (result[i] >= 'A' && result[i] <= 'Z')
 		{
-			for (int k = 0; this->init_fact[k]; k++)
+			for (unsigned long k = 0; k < this->init_fact.size() ; k++)
 			{
 				if (this->init_fact[k]->getValue() == result[i])
-					this->init_fact[k]->setState(static_cast<int>(numeric[0]) - 48);
+				{
+					tmp = static_cast<int>(numeric[0]) - 48;
+					this->init_fact[k]->setState(tmp);
+				}
+				if (i > 0)
+				{
+					if (result[i - 1] == '!' && tmp == 0)
+						this->init_fact[k]->setState(1);
+					else if (result[i - 1] == '!' && tmp == 1)
+						this->init_fact[k]->setState(0);
+				}
 			}
 		}
 	}

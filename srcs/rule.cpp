@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 12:17:34 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 15:21:59 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,6 @@ Rule::Rule( std::string rule, std::vector<Fact*> *init_fact ) : rule(rule)
 			this->number_fact++;
 	}
 	count_truefact(operation, init_fact);
-	std::cout << "RATIO : " << this->ratio << std::endl;
 	sign = this->rule.substr(m.position(0), 3 );
 	sign.erase(std::remove(sign.begin(), sign.end(), ' '), sign.end());
 	result = this->rule.substr(m.position(0) + 3, m.position(1) );

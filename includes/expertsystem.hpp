@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 12:24:17 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 14:18:10 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ class ExpertSystem
 		void			parsing_init_queries(std::string line);
 		void			get_rules_set(void);
 		void			set_initial_fact(std::string numeric, Rule *rule);
-
+		void			queries_answer(void);
+		int				check_contradictions(void);
 		/*
 		** GETTER
 		*/
