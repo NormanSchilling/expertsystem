@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/15 15:53:10 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 12:28:16 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,42 +49,86 @@ void			ExpertSystem::expert()
 	int				number_bracket;
 	std::string		numeric;
 
+	this->get_max_ratio();
+	this->get_rules_set();
+	while (this->number_rules_set != this->rules.size() )
+	{
+		for (unsigned long i = 0; i < this->rules.size(); i++)
+		{
+			if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio())
+			{
+				numeric = numerize(this->rules[i]->getOperation()->getPart());
+				number_bracket = count_first_bracket(numeric);
+				for (int j = 0; j < number_bracket; j++ )
+				{
+					numeric = get_bracket(numeric);
+					std::cout << "bracket = " << numeric << std::endl;
+				}
+				numeric = resolve_and(numeric);
+				std::cout << "resolve_and = " << numeric << std::endl;
+				numeric = resolve_or(numeric);
+				std::cout << "resolve_or = " << numeric << std::endl;
+				numeric = resolve_xor(numeric);
+				std::cout << numeric << std::endl;
+				set_initial_fact(numeric, this->rules[i]);
+				this->rules[i]->setSet(1);
+				this->fetch_init_fact();
+			}
+		}
+		this->get_max_ratio();
+		this->get_rules_set();
+	}
+
+}
+
+void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
+{
+	std::string		result = rule->getResult()->getPart();
+
+	for (int i = 0; result[i]; i++)
+	{
+		if (result[i] >= 'A' && result[i] <= 'Z')
+		{
+			for (int k = 0; this->init_fact[k]; k++)
+			{
+				if (this->init_fact[k]->getValue() == result[i])
+					this->init_fact[k]->setState(static_cast<int>(numeric[0]) - 48);
+			}
+		}
+	}
+}
+
+void			ExpertSystem::get_rules_set()
+{
+	this->number_rules_set = 0;
 
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
-		numeric = numerize(this->rules[i]->getOperation()->getPart());
-		number_bracket = count_first_bracket(numeric);
-		for (int j = 0; j < number_bracket; j++ )
-		{
-			numeric = get_bracket(numeric);
-			std::cout << "bracket = " << numeric << std::endl;
-		}
-		numeric = resolve_and(numeric);
-		std::cout << "resolve_and = " << numeric << std::endl;
-		numeric = resolve_or(numeric);
-		std::cout << "resolve_or = " << numeric << std::endl;
-		numeric = resolve_xor(numeric);
-		std::cout << numeric << std::endl;
+		if (this->rules[i]->getSet() == 1)
+			this->number_rules_set++;
 	}
-
 }
 
 void			ExpertSystem::get_max_ratio(void)
 {
 	float	ratio_max = 0.f;
-	int		ratio_nbr = 0;
+	int		ratio_nbr = 1;
 
-	for (unsigned long i; i < this->rules.size(); i++)
+	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
-		if (this->rules[i]->getRatio() > ratio_max)
+		if (this->rules[i]->getSet() == 0)
 		{
-			ratio_max = this->rules[i]->getRatio();
-			ratio_nbr = 0;
+			if (this->rules[i]->getRatio() > ratio_max)
+			{
+				ratio_max = this->rules[i]->getRatio();
+				ratio_nbr = 1;
+			}
+			else if (this->rules[i]->getRatio() == ratio_max)
+				ratio_nbr++;
 		}
-		else if (this->rules[i]->getRatio() == ratio_max)
-			ratio_nbr++;
 	}
-	this->
+	this->max_ratio = ratio_max;
+	this->max_ratio_nbr = ratio_nbr;
 }
 
 std::string		ExpertSystem::resolve_and(std::string numeric)

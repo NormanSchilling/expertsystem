@@ -5,8 +5,8 @@
 C + (A | B) | (A + B) => D # C implies E
 A + B => C # A and B and C implies D
 V ^ W => X # V xor W implies X
-A + C + D <=> V # C or not G implies H
-
+A + C + !D => V # C or not G implies H
+G + B => P
 
 
 =ABG # Initial facts : A, B and G are true. All others are false.

@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 15:57:19 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:56:24 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 12:15:15 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,4 +62,13 @@ char	Fact::getValue(void)
 int		Fact::getState(void)
 {
 	return (this->state);
+}
+
+
+/*
+** SETTER
+*/
+void	Fact::setState(int state)
+{
+	this->state = state;
 }

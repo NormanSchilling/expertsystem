@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/15 15:48:38 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 12:17:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,12 +103,30 @@ std::string	Rule::getRule(void)
 	return (this->rule);
 }
 
+int			Rule::getSet(void)
+{
+	return (this->set);
+}
+
 Part		*Rule::getOperation(void)
 {
 	return (this->operation);
 }
 
+Part		*Rule::getResult(void)
+{
+	return (this->result);
+}
+
 float		Rule::getRatio(void)
 {
 	return (this->ratio);
+}
+
+/*
+** SETTER
+*/
+void		Rule::setSet(int value)
+{
+	this->set = value;
 }

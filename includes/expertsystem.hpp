@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/15 15:45:47 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 12:24:17 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,8 @@ class ExpertSystem
 		int				count_second_bracket(std::string tmp);
 		void			parsing_init_fact(std::string line);
 		void			parsing_init_queries(std::string line);
+		void			get_rules_set(void);
+		void			set_initial_fact(std::string numeric, Rule *rule);
 
 		/*
 		** GETTER
@@ -72,6 +74,7 @@ class ExpertSystem
 		std::vector<Fact*>	init_queries;
 		int					max_ratio_nbr;
 		float				max_ratio;
+		unsigned long		number_rules_set;
 
 };
 

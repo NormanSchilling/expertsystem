@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/09 15:49:48 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/09 16:55:26 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/16 12:15:14 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ class Fact
 		*/
 		char	getValue(void);
 		int		getState(void);
+		void	setState(int state);
 
 
 	private:
