@@ -71,7 +71,11 @@ int				ExpertSystem::check_contradictions()
 	int					number_bracket;
 
 	for (unsigned long i = 0; i < this->init_fact.size(); i++)
+	{
+		if (this->init_fact[i]->getBase() == 1 && this->init_fact[i]->getState() == 0)
+			return (1);
 		verif.push_back(this->init_fact[i]->getState());
+	}
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
 		numeric = numerize(this->rules[i]->getOperation()->getPart());
@@ -168,7 +172,6 @@ void			ExpertSystem::expert()
 					numeric = resolve_and(numeric);
 					numeric = resolve_or(numeric);
 					numeric = resolve_xor(numeric);
-					std::cout << "RULE = " << this->rules[i]->getRule() << std::endl;
 					set_initial_fact(numeric, this->rules[i]);
 					this->rules[i]->setSet(1);
 				}
@@ -183,17 +186,6 @@ void			ExpertSystem::expert()
 	return ;
 }
 
-int				ExpertSystem::check_rules_ratio(void)
-{
-	for (unsigned long i = 0; i < this->rules.size(); i++)
-	{
-		if (this->rules[i]->getSet() == 0 && this->max_ratio == 0)
-		{
-
-		}
-	}
-	return (0);
-}
 
 void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 {
@@ -558,7 +550,7 @@ void	 		ExpertSystem::parsing_init_fact(std::string line)
 		{
 			if ( tmp[i] >= 'A' && tmp[i] <= 'Z')
 			{
-				this->init_fact.push_back( new Fact( tmp[i], 1 ) );
+				this->init_fact.push_back( new Fact( tmp[i], 1, 1 ) );
 			}
 		}
 	}

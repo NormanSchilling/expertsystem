@@ -30,6 +30,7 @@ class Fact
 		** CONSTRUCT & DESTRUCT
 		*/
 		Fact( void );
+		Fact( char value, int state, int base );
 		Fact( char value, int state );
 		Fact( Fact const & cpy );
 		~Fact( void );
@@ -48,12 +49,14 @@ class Fact
 		*/
 		char	getValue(void);
 		int		getState(void);
+		int		getBase(void);
 		void	setState(int state);
 
 
 	private:
 		char	value;
 		int		state;
+		int		base;
 
 };
 

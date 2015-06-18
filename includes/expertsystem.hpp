@@ -65,7 +65,6 @@ class ExpertSystem
 		void			set_initial_fact(std::string numeric, Rule *rule);
 		void			queries_answer(void);
 		int				check_contradictions(void);
-		int				check_rules_ratio(void);
 		void			set_impossible_fact(void);
 
 		/*

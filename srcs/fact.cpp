@@ -20,7 +20,12 @@ Fact::Fact( void )
 	return ;
 }
 
-Fact::Fact( char value, int state ) : value(value), state(state)
+Fact::Fact( char value, int state, int base ) : value(value), state(state), base(base)
+{
+	return ;
+}
+
+Fact::Fact( char value, int state ) : value(value), state(state), base(0)
 {
 	return ;
 }
@@ -63,7 +68,10 @@ int		Fact::getState(void)
 {
 	return (this->state);
 }
-
+int		Fact::getBase(void)
+{
+	return (this->base);
+}
 
 /*
 ** SETTER

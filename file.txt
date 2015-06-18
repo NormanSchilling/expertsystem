@@ -5,18 +5,16 @@
 C => E # C implies E
 A + B + C => D # A and B and C implies D
 A | B => C # A or B implies C
-O + D => N
 A + !B => F # A and not B implies F
+C | !G => H # C or not G implies H
 V ^ W => X # V xor W implies X
-H + T => M
 A + B => Y + Z # A and B implies Y and Z
 E + F => !V # E and F implies not V
-!S + !P => O
-
+E => !A
 
 =ABG # Initial facts : A, B and G are true. All others are false.
 
 # If no facts are initially true, then a simple "=" followed
 # by a newline is used
 
-?ABCDEFGHVWXYZOMN # Queries : What are G, V and X ?
+?ABGCDEFVWHXYZ# Queries : What are G, V and X ?
