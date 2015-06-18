@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:37:50 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 16:57:11 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/18 13:50:22 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,13 +96,17 @@ void			ExpertSystem::expert()
 	int				number_bracket;
 	std::string		numeric;
 
+	if (!check_init_fact())
+	{
+
+	}
 	this->get_rules_set();
 	while (this->number_rules_set != this->rules.size() )
 	{
 		for (unsigned long i = 0; i < this->rules.size(); i++)
 		{
 			this->get_max_ratio();
-			if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio())
+			if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio() && this->max_ratio != 0)
 			{
 				numeric = numerize(this->rules[i]->getOperation()->getPart());
 				number_bracket = count_first_bracket(numeric);
@@ -114,6 +118,10 @@ void			ExpertSystem::expert()
 				set_initial_fact(numeric, this->rules[i]);
 				this->rules[i]->setSet(1);
 			}
+			else if (this->rules[i]->getSet() == 0 && this->max_ratio == 0)
+			{
+				
+			}
 		}
 		this->get_rules_set();
 	}
@@ -123,6 +131,28 @@ void			ExpertSystem::expert()
 		std::cout << "Some rules are conflicting !" << std::endl;
 	return ;
 }
+
+int				ExpertSystem::check_rules_ratio(void)
+{
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		if (this->rules[i]->getSet() == 0 && this->max_ratio == 0)
+		{
+
+		}
+	}
+}
+
+int				ExpertSystem::check_init_fact(void)
+{
+	for (unsigned long i = 0; i < this->init_fact.size(); i++)
+	{
+		if (this->init_fact[i]->getState() != -2)
+			return (1);
+	}
+	return (0);
+}
+
 
 void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 {
@@ -138,13 +168,16 @@ void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 				if (this->init_fact[k]->getValue() == result[i])
 				{
 					tmp = static_cast<int>(numeric[0]) - 48;
-					this->init_fact[k]->setState(tmp);
-					if (i > 0)
+					if (tmp == 1)
 					{
-						if (result[i - 1] == '!' && tmp == 0)
-							this->init_fact[k]->setState(1);
-						else if (result[i - 1] == '!' && tmp == 1)
-							this->init_fact[k]->setState(0);
+						this->init_fact[k]->setState(tmp);
+						if (i > 0)
+						{
+							if (result[i - 1] == '!' && tmp == 0)
+								this->init_fact[k]->setState(1);
+							else if (result[i - 1] == '!' && tmp == 1)
+								this->init_fact[k]->setState(0);
+						}
 					}
 				}
 			}

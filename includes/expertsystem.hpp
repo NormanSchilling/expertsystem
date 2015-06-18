@@ -6,7 +6,7 @@
 /*   By: nschilli <nschilli@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2015/06/08 13:40:26 by nschilli          #+#    #+#             */
-/*   Updated: 2015/06/16 14:18:10 by nschilli         ###   ########.fr       */
+/*   Updated: 2015/06/18 13:29:34 by nschilli         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,8 @@ class ExpertSystem
 		void			set_initial_fact(std::string numeric, Rule *rule);
 		void			queries_answer(void);
 		int				check_contradictions(void);
+		int				check_rules_ratio(void);
+		int				check_init_fact(void);
 		/*
 		** GETTER
 		*/
