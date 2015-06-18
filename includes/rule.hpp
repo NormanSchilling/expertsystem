@@ -44,6 +44,7 @@ class Rule
 		** GETTER
 		*/
 		void			count_truefact(std::string operation, std::vector<Fact*> *init_fact);
+		void			count_ratio_zero(std::string operation, std::vector<Fact*> *init_fact);
 		std::string		getRule(void);
 		int				getSet(void);
 		Part 			*getOperation(void);

@@ -94,6 +94,24 @@ void		Rule::count_truefact(std::string operation, std::vector<Fact*> *init_fact)
 	this->ratio = this->number_truefact / this->number_fact;
 }
 
+void	Rule::count_ratio_zero(std::string operation, std::vector<Fact*> *init_fact)
+{
+	this->number_truefact = 0.f;
+
+	for (int i = 0; operation[i]; i++)
+	{
+		if (i > 0 && operation[i - 1] == '!' && operation[i] >= 'A' && operation[i] <= 'Z')
+		{
+			for (unsigned long k = 0; k < init_fact->size(); k++)
+			{
+				if ((*init_fact)[k]->getValue() == operation[i] && (*init_fact)[k]->getState() == -2)
+					this->number_truefact++;
+			}
+		}
+	}
+	this->ratio = this->number_truefact / this->number_fact;
+}
+
 /*
 ** GETTER
 */

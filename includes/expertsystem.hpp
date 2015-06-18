@@ -45,6 +45,7 @@ class ExpertSystem
 		*/
 		void			expert(void);
 		void			get_max_ratio(void);
+		void			ma_bite(void);
 		std::string		get_bracket(std::string numeric);
 		std::string		simplification_bracket(std::string numeric, int c);
 		char			resolve_bracket(std::string bracket);
@@ -65,7 +66,8 @@ class ExpertSystem
 		void			queries_answer(void);
 		int				check_contradictions(void);
 		int				check_rules_ratio(void);
-		int				check_init_fact(void);
+		void			set_impossible_fact(void);
+
 		/*
 		** GETTER
 		*/

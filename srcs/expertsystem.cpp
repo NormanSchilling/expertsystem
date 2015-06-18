@@ -91,36 +91,87 @@ int				ExpertSystem::check_contradictions()
 	return (0);
 }
 
+void			ExpertSystem::set_impossible_fact(void)
+{
+	std::vector<char>	verif;
+	std::string			result;
+	int					found;
+
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		result = this->rules[i]->getResult()->getPart();
+		for (int j = 0; result[j]; j++)
+		{
+			if (result[j] >= 'A' && result[j] <= 'Z')
+				verif.push_back(result[j]);
+		}
+	}
+
+	for (unsigned long k = 0; k < this->init_fact.size() ; k++)
+	{
+		if (this->init_fact[k]->getState() == -2)
+		{
+			found = 0;
+			for(unsigned long i = 0; i < verif.size(); i++)
+			{
+				if (this->init_fact[k]->getValue() == verif[i])
+				{
+					found = 1;
+					break ;
+				}
+			}
+			if (!found)
+				this->init_fact[k]->setState(0);
+		}
+	}
+}
+
 void			ExpertSystem::expert()
 {
 	int				number_bracket;
 	std::string		numeric;
 
-	if (!check_init_fact())
-	{
-
-	}
+	this->set_impossible_fact();
 	this->get_rules_set();
 	while (this->number_rules_set != this->rules.size() )
 	{
-		for (unsigned long i = 0; i < this->rules.size(); i++)
+		this->get_max_ratio();
+		if (this->max_ratio != 0)
 		{
-			this->get_max_ratio();
-			if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio() && this->max_ratio != 0)
+			for (unsigned long i = 0; i < this->rules.size(); i++)
 			{
-				numeric = numerize(this->rules[i]->getOperation()->getPart());
-				number_bracket = count_first_bracket(numeric);
-				for (int j = 0; j < number_bracket; j++ )
-					numeric = get_bracket(numeric);
-				numeric = resolve_and(numeric);
-				numeric = resolve_or(numeric);
-				numeric = resolve_xor(numeric);
-				set_initial_fact(numeric, this->rules[i]);
-				this->rules[i]->setSet(1);
+				if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio())
+				{
+					numeric = numerize(this->rules[i]->getOperation()->getPart());
+					number_bracket = count_first_bracket(numeric);
+					for (int j = 0; j < number_bracket; j++ )
+						numeric = get_bracket(numeric);
+					numeric = resolve_and(numeric);
+					numeric = resolve_or(numeric);
+					numeric = resolve_xor(numeric);
+					set_initial_fact(numeric, this->rules[i]);
+					this->rules[i]->setSet(1);
+				}
 			}
-			else if (this->rules[i]->getSet() == 0 && this->max_ratio == 0)
+		}
+		else if (this->max_ratio == 0)
+		{
+			this->ma_bite();
+			for (unsigned long i = 0; i < this->rules.size(); i++)
 			{
-				
+				if (this->rules[i]->getSet() == 0 && this->max_ratio == this->rules[i]->getRatio())
+				{
+					numeric = numerize(this->rules[i]->getOperation()->getPart());
+					number_bracket = count_first_bracket(numeric);
+					for (int j = 0; j < number_bracket; j++ )
+						numeric = get_bracket(numeric);
+					numeric = resolve_and(numeric);
+					numeric = resolve_or(numeric);
+					numeric = resolve_xor(numeric);
+					std::cout << "RULE = " << this->rules[i]->getRule() << std::endl;
+					set_initial_fact(numeric, this->rules[i]);
+					this->rules[i]->setSet(1);
+				}
 			}
 		}
 		this->get_rules_set();
@@ -141,18 +192,8 @@ int				ExpertSystem::check_rules_ratio(void)
 
 		}
 	}
-}
-
-int				ExpertSystem::check_init_fact(void)
-{
-	for (unsigned long i = 0; i < this->init_fact.size(); i++)
-	{
-		if (this->init_fact[i]->getState() != -2)
-			return (1);
-	}
 	return (0);
 }
-
 
 void			ExpertSystem::set_initial_fact(std::string numeric, Rule *rule)
 {
@@ -203,6 +244,31 @@ void			ExpertSystem::get_max_ratio(void)
 
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 		this->rules[i]->count_truefact(this->rules[i]->getOperation()->getPart(), &(this->init_fact));
+
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+	{
+		if (this->rules[i]->getSet() == 0)
+		{
+			if (this->rules[i]->getRatio() > ratio_max)
+			{
+				ratio_max = this->rules[i]->getRatio();
+				ratio_nbr = 1;
+			}
+			else if (this->rules[i]->getRatio() == ratio_max)
+				ratio_nbr++;
+		}
+	}
+	this->max_ratio = ratio_max;
+	this->max_ratio_nbr = ratio_nbr;
+}
+
+void			ExpertSystem::ma_bite(void)
+{
+	float	ratio_max = 0.f;
+	int		ratio_nbr = 1;
+
+	for (unsigned long i = 0; i < this->rules.size(); i++)
+		this->rules[i]->count_ratio_zero(this->rules[i]->getOperation()->getPart(), &(this->init_fact));
 
 	for (unsigned long i = 0; i < this->rules.size(); i++)
 	{
